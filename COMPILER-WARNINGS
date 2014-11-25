@@ -1,0 +1,18 @@
+p0f.c: In function ‘main’:
+p0f.c:1227:5: warning: format ‘%llu’ expects argument of type ‘long long unsigned int’, but argument 2 has type ‘u64’ [-Wformat=]
+     SAYF("\nAll done. Processed %llu packets.\n", packet_cnt);
+     ^
+fp_tcp.c: In function ‘dump_flags’:
+fp_tcp.c:883:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+   RETF("");
+   ^
+fp_tcp.c:883:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+fp_tcp.c:883:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+fp_tcp.c:883:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+fp_http.c: In function ‘dump_flags’:
+fp_http.c:644:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+   RETF("");
+   ^
+fp_http.c:644:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+fp_http.c:644:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]
+fp_http.c:644:3: warning: zero-length gnu_printf format string [-Wformat-zero-length]

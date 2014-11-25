@@ -119,6 +119,28 @@ static void find_offset(const u8* data, s32 total_len) {
   for (i = 0; i < 40; i += 2, total_len -= 2) {
 
     if (total_len < MIN_TCP4) break;
+ 	
+    /* cjdavi1 - I moved the IPv4 check to be before the IPv6. In 10/15 years,
+       change it back.
+    */
+
+    /* Okay, let's try IPv4 then. The same approach, except the shortest packet
+       size must be just enough to accommodate IPv4 + TCP (already checked). */
+
+    if ((data[i] >> 4) == IP_VER4) {
+
+      struct ipv4_hdr* hdr = (struct ipv4_hdr*)(data + i);
+
+      if (hdr->proto == PROTO_TCP) {
+
+        DEBUG("[#] Detected packet offset of %u via IPv4 (link type %u).\n", i,
+              link_type);
+        link_off = i;
+        break;
+
+      }
+
+    }
 
     /* Perhaps this is IPv6? We check three things: IP version (first 4 bits);
        total length sufficient to accommodate IPv6 and TCP headers; and the
@@ -139,23 +161,7 @@ static void find_offset(const u8* data, s32 total_len) {
       
     }
 
-    /* Okay, let's try IPv4 then. The same approach, except the shortest packet
-       size must be just enough to accommodate IPv4 + TCP (already checked). */
 
-    if ((data[i] >> 4) == IP_VER4) {
-
-      struct ipv4_hdr* hdr = (struct ipv4_hdr*)(data + i);
-
-      if (hdr->proto == PROTO_TCP) {
-
-        DEBUG("[#] Detected packet offset of %u via IPv4 (link type %u).\n", i,
-              link_type);
-        link_off = i;
-        break;
-
-      }
-
-    }
 
   }
 
